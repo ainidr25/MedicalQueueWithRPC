@@ -2,6 +2,7 @@
 
 from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer
 from datetime import datetime
+from datetime import timedelta
 
 import logging
 
@@ -10,6 +11,7 @@ logging.basicConfig(level=logging.DEBUG)
 # Membuat server
 server = SimpleJSONRPCServer(("127.0.0.1", 8081))
 server.register_introspection_functions()
+print("Server running on")
 
 def time_in_range(start, end, x):
     """ Mengembalikan True jika x berada dalam range [start, end] """
@@ -17,6 +19,30 @@ def time_in_range(start, end, x):
         return start <= x <= end
     else:
         return start <= x or x <= end
+    
+def get_date(day):
+        # Mendefinisikan hari-hari dalam seminggu
+        days_of_week = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
+        
+        # Mendapatkan hari ini
+        today = datetime.now()
+        
+        # Mendapatkan indeks hari ini dan hari yang diinginkan
+        today_index = today.weekday()
+        target_index = days_of_week.index(day)
+        
+        # Menghitung perbedaan hari
+        day_difference = (target_index - today_index) % 7
+        
+        # Jika hari yang diinginkan adalah hari ini, kita tidak perlu menambahkan hari
+        if day_difference == 0:
+            return str(today)
+        
+        # Menghitung tanggal hari yang diinginkan
+        target_date = today + timedelta(days=day_difference)
+        
+        return str(target_date)
+    
 
 # Membuat instansiasi yang dipublikasikan sebagai method XML-RPC
 # waktu_pasien dalam format menit
@@ -29,7 +55,7 @@ daftar_klinik = [
         "waktu_pasien": 30,
         "dokter": [
 			{
-				"nama": "dr. Mentari ",
+				"nama": "dr. Mentari",
 				"hari_kerja": ["Senin", "Rabu", "Jumat"],
 				"jam_awal_kerja": "09:00",
 				"jam_akhir_kerja": "13:00",
@@ -37,7 +63,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Jumat": 0}
 			},
 			{
-				"nama": "dr. Yanti   ",
+				"nama": "dr. Yanti",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "09:00",
 				"jam_akhir_kerja": "11:00",
@@ -45,7 +71,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Kamis": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Yadi    ",
+				"nama": "dr. Yadi",
 				"hari_kerja": ["Senin", "Rabu", "Jumat"],
 				"jam_awal_kerja": "13:00",
 				"jam_akhir_kerja": "19:00",
@@ -54,10 +80,10 @@ daftar_klinik = [
                 
 			},		
 			{
-				"nama": "dr. Anto    ",
+				"nama": "dr. Anto",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "11:00",
-				"jam_akhir_kerja": "16:00",
+				"jam_akhir_kerja": "19:00",
                 "antrian_hari": {"Selasa": [], "Kamis": [], "Sabtu": []},
                 "jml_antrian_hari": {"Selasa": 0, "Kamis": 0, "Sabtu": 0}
 			},				
@@ -72,7 +98,7 @@ daftar_klinik = [
         "waktu_pasien": 15,
         "dokter": [
 			{
-				"nama": "dr. Azis    ",
+				"nama": "dr. Azis",
 				"hari_kerja": ["Senin", "Rabu", "Kamis  "],
 				"jam_awal_kerja": "09:00",
 				"jam_akhir_kerja": "13:30",
@@ -80,7 +106,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Kamis": 0}
 			},
 			{
-				"nama": "dr. Ayu     ",
+				"nama": "dr. Ayu",
 				"hari_kerja": ["Selasa", "Jumat", "Sabtu"],
 				"jam_awal_kerja": "09:00",
 				"jam_akhir_kerja": "13:00",
@@ -88,7 +114,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Jumat": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Sinta   ",
+				"nama": "dr. Sinta",
 				"hari_kerja": ["Senin", "Rabu", "Kamis  "],
 				"jam_awal_kerja": "13:30",
 				"jam_akhir_kerja": "18:00",
@@ -96,7 +122,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Kamis": 0}
 			},		
 			{
-				"nama": "dr. Anto    ",
+				"nama": "dr. Anto",
 				"hari_kerja": ["Selasa", "Jumat", "Sabtu"],
 				"jam_awal_kerja": "13:00",
 				"jam_akhir_kerja": "18:00",
@@ -113,7 +139,7 @@ daftar_klinik = [
         "waktu_pasien": 50,
         "dokter": [
 			{
-				"nama": "dr. Delvito ",
+				"nama": "dr. Delvito",
 				"hari_kerja": ["Senin", "Rabu", "Jumat"],
 				"jam_awal_kerja": "08:00",
 				"jam_akhir_kerja": "12:00",
@@ -121,7 +147,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Jumat": 0}
 			},
 			{
-				"nama": "dr. Asep    ",
+				"nama": "dr. Asep",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "08:00",
 				"jam_akhir_kerja": "12:00",
@@ -129,7 +155,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Kamis": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Santy   ",
+				"nama": "dr. Santy",
 				"hari_kerja": ["Senin", "Rabu", "Jumat"],
 				"jam_awal_kerja": "12:00",
 				"jam_akhir_kerja": "17:00",
@@ -154,7 +180,7 @@ daftar_klinik = [
         "waktu_pasien": 20,
         "dokter": [
 			{
-				"nama": "dr. Aini    ",
+				"nama": "dr. Aini",
 				"hari_kerja": ["Senin", "Rabu", "Kamis  "],
 				"jam_awal_kerja": "07:00",
 				"jam_akhir_kerja": "13:00",
@@ -162,7 +188,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Kamis": 0}
 			},
 			{
-				"nama": "dr. Budi    ",
+				"nama": "dr. Budi",
 				"hari_kerja": ["Selasa", "Jumat", "Sabtu"],
 				"jam_awal_kerja": "07:00",
 				"jam_akhir_kerja": "13:00",
@@ -170,7 +196,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Jumat": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Soni    ",
+				"nama": "dr. Soni",
 				"hari_kerja": ["Senin", "Rabu", "Kamis  "],
 				"jam_awal_kerja": "13:00",
 				"jam_akhir_kerja": "18:00",
@@ -195,7 +221,7 @@ daftar_klinik = [
         "waktu_pasien": 50,
         "dokter": [
 			{
-				"nama": "dr. Rafi    ",
+				"nama": "dr. Rafi",
 				"hari_kerja": ["Senin", "Rabu", "Jumat"],
 				"jam_awal_kerja": "08:00",
 				"jam_akhir_kerja": "12:00",
@@ -203,7 +229,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Jumat": 0}
 			},
 			{
-				"nama": "dr. Rachmat ",
+				"nama": "dr. Rachmat",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "08:00",
 				"jam_akhir_kerja": "12:00",
@@ -211,7 +237,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Kamis": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Alysia  ",
+				"nama": "dr. Alysia",
 				"hari_kerja": ["Senin", "Rabu", "Jumat"],
 				"jam_awal_kerja": "12:00",
 				"jam_akhir_kerja": "17:00",
@@ -219,7 +245,7 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Jumat": 0}
 			},		
 			{
-				"nama": "dr. Saldy   ",
+				"nama": "dr. Saldy",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "12:00",
 				"jam_akhir_kerja": "17:00",
@@ -232,23 +258,6 @@ daftar_klinik = [
 pertama = True  # variabel yang bernilai True jika pasien merupakan pasien pertama yang melakukan registrasi pada sistem
 tgl_hari_ini = ''
 
-def mapping_hari(hari):
-        """ Mengubah nama hari dalam bahasa Indonesia """
-        if hari == "Monday":
-            return "Senin"
-        elif hari == "Tuesday":
-            return "Selasa"
-        elif hari == "Wednesday":
-            return "Rabu"
-        elif hari == "Thursday":
-            return "Kamis"
-        elif hari == "Friday":
-            return "Jumat"
-        elif hari == "Saturday":
-            return "Sabtu"
-        elif hari == "Sunday":
-            return "Minggu"
-
 class RumahSakit:
     def get_klinik(self, id):
         """Diberikan sebuah bilangan bulat id untuk mengembalikan data klinik yang memiliki id tersebut jika ada,
@@ -259,78 +268,108 @@ class RumahSakit:
                 return klinik
         return -1
 
-    def regis(self, id, no_reg, nama, tgl_lahir, tgl_input, day):
+    def regis(self, id, no_rekam_medis, nama, tgl_lahir, waktu_masuk, day):
         """Menyimpan data pasien yang melakukan registrasi pada klinik tertentu, dan mengembalikan nomor antrian
         yang didapat"""
         global daftar_klinik
-        nama_hari_indo = mapping_hari(day)
-        logging.debug(f"Registrasi request: id={id}, no_reg={no_reg}, nama={nama}, tgl_lahir={tgl_lahir}, tgl_input={tgl_input}, day={day}, nama_hari_indo={nama_hari_indo}")
+        datetime_waktu_masuk = datetime.strptime(waktu_masuk, '%Y-%m-%d %H:%M:%S.%f')
+        jam = datetime_waktu_masuk.strftime("%H:%M")
         for klinik in daftar_klinik:
             
             if klinik['id'] == id:
                 antrian_baru = {
                     'no': None,  # Nomor antrian akan diatur nanti
-                    'no_reg': no_reg,
+                    'no_rekam_medis': no_rekam_medis,
                     'nama': nama,
                     'tgl_lahir': tgl_lahir,
-                    'tgl_input': tgl_input,
+                    'waktu_masuk': waktu_masuk,
+                    'waktu_selesai': None,
                     'dokter': None,
                     'antrian_di_depan': None
                 }
+                
                 for dokter in klinik['dokter']:
-                    logging.debug(f"Checking hari kerja: {dokter['hari_kerja']}")
-                    if nama_hari_indo in dokter['hari_kerja']:
-                        antrian_baru['no'] = len(dokter['antrian_hari'][nama_hari_indo]) + 1
-                        dokter['antrian_hari'][nama_hari_indo].append(antrian_baru)
-                        # Update field dokter dan antrian_di_depan
-                        antrian_baru['dokter'] = dokter['nama']
-                        antrian_baru['antrian_di_depan'] = len(dokter['antrian_hari'][nama_hari_indo]) - 1
-                        logging.debug(f"New registration: {antrian_baru}")
-                        return antrian_baru['no']
-        logging.debug("No matching clinic or doctor found.")
+                    is_dokter_praktik = self.get_dokter_praktik(id, jam, dokter['nama'])
+                    if day in dokter['hari_kerja'] and is_dokter_praktik:
+                        str_waktu_antrian = self.get_waktu_antrian(id, day, dokter['nama'])
+                        waktu_antrian = None
+                        jam_antrian = None
+                        if str_waktu_antrian == "Antrian Kosong":
+                            waktu_antrian = datetime.now()
+                            jam_antrian = waktu_antrian.strftime("%H:%M")
+                        else:
+                            waktu_antrian = datetime.strptime(str_waktu_antrian, '%Y-%m-%d %H:%M:%S.%f')
+                            jam_antrian = waktu_antrian.strftime("%H:%M")
+                        is_masih_ada_antrian = self.get_dokter_praktik(id, jam_antrian, dokter['nama'])
+                        if is_masih_ada_antrian:
+                            antrian_baru['no'] = len(dokter['antrian_hari'][day]) + 1
+                            waktu_selesai = waktu_antrian + timedelta(minutes=klinik['waktu_pasien'])
+                            antrian_baru['waktu_selesai'] = str(waktu_selesai)
+                            antrian_baru['dokter'] = dokter['nama']
+                            dokter['antrian_hari'][day].append(antrian_baru)
+                            antrian_baru['antrian_di_depan'] = len(dokter['antrian_hari'][day]) - 1
+                            return antrian_baru['no']
+                        else:
+                            return -1
         return None  # Jika tidak ada klinik atau dokter yang cocok
+    
+    def booking(self, id, no_rekam_medis, nama, tgl_lahir, hari_booking, dokter_dipilih):
+        """Menyimpan data pasien yang melakukan registrasi pada klinik tertentu, dan mengembalikan nomor antrian
+        yang didapat"""
+        global daftar_klinik
+        waktu_masuk = get_date(hari_booking)
+        for klinik in daftar_klinik:
+            if klinik['id'] == id:
+                antrian_baru = {
+                    'no': None,  # Nomor antrian akan diatur nanti
+                    'no_rekam_medis': no_rekam_medis,
+                    'nama': nama,
+                    'tgl_lahir': tgl_lahir,
+                    'waktu_masuk': waktu_masuk,
+                    'waktu_selesai': None,
+                    'dokter': dokter_dipilih,
+                    'antrian_di_depan': None
+                }
+                for dokter in klinik['dokter']:
+                    if dokter['nama'] == dokter_dipilih:
+                        str_waktu_antrian_terakhir = self.get_waktu_antrian(id, hari_booking, dokter['nama'])
+                        waktu_antrian = None
+                        if str_waktu_antrian_terakhir == "Antrian Kosong":
+                            str_waktu_antrian = get_date(hari_booking)
+                            waktu_antrian = datetime.strptime(str_waktu_antrian, '%Y-%m-%d %H:%M:%S.%f')
+                            jam_awal_kerja = datetime.strptime(dokter['jam_awal_kerja'], '%H:%M')
+                            waktu_antrian = waktu_antrian.replace(hour=jam_awal_kerja.hour, minute=jam_awal_kerja.minute)
+                            #jika waktu_masuk lebih kecil dari waktu sekarang, maka waktu_masuk di tambah 7 hari
+                            if waktu_antrian < datetime.now():
+                                waktu_antrian = waktu_antrian + timedelta(days=7)
+                        else:
+                            waktu_antrian = datetime.strptime(str_waktu_antrian_terakhir, '%Y-%m-%d %H:%M:%S.%f')
+                        jam_antrian = waktu_antrian.strftime("%H:%M")
+                        is_masih_ada_antrian = self.get_dokter_praktik(id, jam_antrian, dokter['nama'])
+                        if is_masih_ada_antrian:
+                            antrian_baru['no'] = len(dokter['antrian_hari'][hari_booking]) + 1
+                            waktu_selesai = waktu_antrian + timedelta(minutes=klinik['waktu_pasien'])
+                            antrian_baru['waktu_selesai'] = str(waktu_selesai)
+                            antrian_baru['dokter'] = dokter['nama']
+                            antrian_baru['waktu_masuk'] = str(waktu_antrian)
+                            dokter['antrian_hari'][hari_booking].append(antrian_baru)
+                            antrian_baru['antrian_di_depan'] = len(dokter['antrian_hari'][hari_booking]) - 1
+                            return antrian_baru
+                        else:
+                            return -1
+        return None  # Jika tidak ada klinik atau dokter yang cocok
+        
 
-    # def booking(self, id, no_reg, nama, tgl_lahir, hari, dokter_nama):
-    #     """Menyimpan data pasien yang melakukan booking pada klinik tertentu, hari tertentu dan dokter tertentu,
-    #     dan mengembalikan nomor antrian serta waktu estimasi layanan"""
-    #     global daftar_klinik
-    #     for klinik in daftar_klinik:
-    #         if klinik['id'] == id:
-    #             for dokter in klinik['dokter']:
-    #                 if dokter['nama'] == dokter_nama and hari in dokter['hari_kerja']:
-    #                     antrian_hari = dokter['antrian_hari']
-    #                     antrian_baru = {
-    #                         'no': len(antrian_hari[hari]) + 1,
-    #                         'no_reg': no_reg,
-    #                         'nama': nama,
-    #                         'tgl_lahir': tgl_lahir,
-    #                         'hari': hari,
-    #                         'dokter': dokter_nama
-    #                     }
-    #                     antrian_hari[hari].append(antrian_baru)
-                        
-    #                     # Menghitung estimasi waktu
-    #                     waktu_mulai = datetime.strptime(dokter['jam_awal_kerja'], "%H:%M")
-    #                     estimasi_waktu = waktu_mulai + timedelta(minutes=(antrian_baru['no'] - 1) * klinik['waktu_pasien'])
-    #                     antrian_baru['estimasi_waktu'] = estimasi_waktu.strftime("%H:%M")
-                        
-    #                     return {
-    #                         'no_antrian': antrian_baru['no'],
-    #                         'estimasi_waktu': antrian_baru['estimasi_waktu']
-    #                     }
-    #     return None  # Jika tidak ada klinik atau dokter yang cocok
-
-    def get_antri(self, id, no):
+    def get_antri(self, id, no, day):
         """Diberikan sebuah bilangan bulat 'id' dan 'no', untuk mengembalikan data antrian dengan nomor 'no' pada klinik
         dengan id = 'id'"""
         global daftar_klinik
         for klinik in daftar_klinik:
             if klinik['id'] == id:
                 for dokter in klinik['dokter']:
-                    for hari, antrian in dokter['antrian_hari'].items():
-                        for antri in antrian:
-                            if antri['no'] == no:
-                                return antri
+                    for antrian in dokter['antrian_hari'][day]:
+                        if antrian['no'] == no:
+                            return antrian
         return None
 
     def get_klinik_buka(self, waktu):
@@ -341,6 +380,17 @@ class RumahSakit:
             if time_in_range(klinik['buka'], klinik['tutup'], waktu):
                 klinik_buka.append(klinik)
         return klinik_buka
+    
+    def get_dokter_praktik(self, id, waktu, dokter):
+        """Mengembalikan True jika dokter 'dokter' bekerja pada hari 'hari' pada klinik dengan id 'id' pada saat 'waktu'"""
+        global daftar_klinik
+        for klinik in daftar_klinik:
+            if klinik['id'] == id:
+                for dokter_klinik in klinik['dokter']:
+                    if dokter_klinik['nama'] == dokter:
+                        if time_in_range(dokter_klinik['jam_awal_kerja'], dokter_klinik['jam_akhir_kerja'], waktu):
+                            return True
+        return False
 
     def reset_antrian(self):
         """Menghapus data pada list antrian dan mengeset jumlah pasien menjadi 0 pada seluruh klinik"""
@@ -384,6 +434,34 @@ class RumahSakit:
             daftar_str += "==================================================\n\n"
         return daftar_str
 
+    def get_available_dokter(self, id, hari):
+        """Mengembalikan daftar dokter yang bekerja pada hari 'hari' pada klinik dengan id 'id'"""
+        global daftar_klinik
+        for klinik in daftar_klinik:
+            if klinik['id'] == id:
+                dokter_hari = []
+                for dokter in klinik['dokter']:
+                    if hari in dokter['hari_kerja']:
+                        dokter_hari.append(dokter['nama'])
+                return dokter_hari
+        return None
+    
+    def get_waktu_antrian(self, id, hari, dokter):
+        """Mengembalikan waktu antrian terakhir yang terdaftar pada dokter 'dokter' pada hari 'hari' pada klinik dengan id 'id'"""
+        global daftar_klinik
+        for klinik in daftar_klinik:
+            if klinik['id'] == id:
+                for dokter_klinik in klinik['dokter']:
+                    if dokter_klinik['nama'] == dokter:
+                        # cek apakah dokter_klinik['antrian_hari'][hari] kosong
+                        if dokter_klinik['antrian_hari'][hari]:
+                            antrian_terakhir = dokter_klinik['antrian_hari'][hari][-1]
+                            return antrian_terakhir['waktu_selesai']
+                        else:
+                            return "Antrian Kosong"
+        return None
+
+    
 # meregisterkan class pada server
 server.register_instance(RumahSakit())
 

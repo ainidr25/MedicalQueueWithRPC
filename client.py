@@ -2,6 +2,10 @@ from datetime import datetime
 from datetime import timedelta
 import jsonrpclib
 
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
 # membuat stub pada client
 s = jsonrpclib.Server('http://127.0.0.1:8081')
 
@@ -12,6 +16,7 @@ def select_menu():
     print('1. Menampilkan daftar klinik yang buka')
     print('2. Menampilkan seluruh daftar klinik beserta jadwal dokter')
     print('3. Registrasi')
+    print('4. Booking Antrian')
     print('0. Keluar')
     pilihan = input('Masukkan pilihan menu: ')
     while pilihan != '0':
@@ -23,6 +28,9 @@ def select_menu():
             return_menu()
         elif pilihan == '3':
             registrasi()
+            return_menu()
+        elif pilihan == '4':
+            booking()
             return_menu()
         else:
             print('Pilihan menu tidak sesuai, silahkan pilih kembali')
@@ -80,59 +88,103 @@ def time_in_range(start, end, current):
     current_time = datetime.strptime(current, "%H:%M").time()
     return start_time <= current_time <= end_time
 
+def mapping_hari(hari):
+        """ Mengubah nama hari dalam bahasa Indonesia """
+        if hari == "Monday":
+            return "Senin"
+        elif hari == "Tuesday":
+            return "Selasa"
+        elif hari == "Wednesday":
+            return "Rabu"
+        elif hari == "Thursday":
+            return "Kamis"
+        elif hari == "Friday":
+            return "Jumat"
+        elif hari == "Saturday":
+            return "Sabtu"
+        elif hari == "Sunday":
+            return "Minggu"
+
 def registrasi():
     """ Fungsi untuk melakukan registrasi """
     # menerima input id klinik, selama tidak valid akan diminta input kembali
-    ids = input('Masukkan nomor klinik: ')
-    while not ids.isdigit():
-        print('Klinik tidak valid, silahkan pilih kembali')
+    while True:
         ids = input('Masukkan nomor klinik: ')
-    id = int(ids)
-    klinik = s.get_klinik(id)
-    tgl_input = datetime.now()
-    waktu = tgl_input.strftime("%H:%M")
-    day = tgl_input.strftime("%d")
-    day_name = tgl_input.strftime("%A")
-    # jika hari sudah berganti, maka data antrian pada seluruh klinik akan direset
-    if day != s.get_hari():
-        s.reset_antrian()
-        s.set_hari(day)
-    # menerima input id klinik, selama tidak valid atau klinik tersebut tidak buka, akan diminta input kembali
-    while s.get_klinik(id) == -1 or not time_in_range(klinik['buka'], klinik['tutup'], waktu):
-        print('Klinik tidak valid, silahkan pilih kembali')
-        ids = input('Masukkan nomor klinik: ')
-        while not ids.isdigit():
+        while not ids in ['1', '2', '3', '4', '5']:
             print('Klinik tidak valid, silahkan pilih kembali')
             ids = input('Masukkan nomor klinik: ')
         id = int(ids)
         klinik = s.get_klinik(id)
-        tgl_input = datetime.now()
-        waktu = tgl_input.strftime("%H:%M")
-        day = tgl_input.strftime("%d")
-        # jika hari sudah berganti, maka data antrian pada seluruh klinik akan direset
-        if day != s.get_hari():
-            s.reset_antrian()
-            s.set_hari(day)
+        waktu_masuk = datetime.now()
+        waktu = waktu_masuk.strftime("%H:%M")
+        if not time_in_range(klinik['buka'], klinik['tutup'], waktu):
+            print('Klinik tidak buka saat ini, silahkan pilih kembali')
+        else:
+            break
+        
+        
+    day = waktu_masuk.strftime("%d")
+    day_name = waktu_masuk.strftime("%A")
+    day_name = mapping_hari(day_name)
+    # jika hari sudah berganti, maka data antrian pada seluruh klinik akan direset
+    if day != s.get_hari():
+        s.reset_antrian()
+        s.set_hari(day)
+       
     # menerima input data pasien
-    no_rek = input('Masukkan nomor rekam medis: ')
+    no_rekam_medis = input('Masukkan nomor rekam medis: ')
     nama = input('Masukkan nama: ')
     tgl_lahir = input('Masukkan tanggal lahir (dd-mm-yyyy): ')
     # memanggil fungsi regis() yang ada di komputer remote
-    no_antri = s.regis(id, no_rek, nama, tgl_lahir, str(tgl_input), day_name)
-    # memanggil fungsi get_antri() yang ada di komputer remote
-    antri = s.get_antri(id, no_antri)
-    # memanggil fungsi get_klinik() yang ada di komputer remote
-    klinik = s.get_klinik(id)
-    # menampilkan data antrian yang didapatkan
-    print('-------------------------------------------------------')
-    print('Nomor antrian:', antri['no'])
-    print('Nama Dokter:', antri['dokter'])
-    print('Antrian di depan Anda:', antri['antrian_di_depan'])
-    # menghitung waktu giliran pasien masuk ke klinik
-    lama_antri = (antri['antrian_di_depan']) * klinik['waktu_pasien']
-    waktu_masuk = tgl_input + timedelta(minutes=lama_antri)
-    print('Perkiraan waktu Anda mendapat giliran:', waktu_masuk)
-    print('Perkiraan waktu selesai:', waktu_masuk + timedelta(minutes=klinik['waktu_pasien']))
+    no_antri = s.regis(id, no_rekam_medis, nama, tgl_lahir, str(waktu_masuk), day_name)
+    
+    if no_antri == -1:
+        print('Antrian Penuh')
+        return
+    else:
+        # memanggil fungsi get_antri() yang ada di komputer remote
+        antri = s.get_antri(id, no_antri, day_name)
+        # menampilkan data antrian yang didapatkan
+        print('-------------------------------------------------------')
+        print('Nomor antrian:', antri['no'])
+        print('Nama Dokter:', antri['dokter'])
+        print('Antrian di depan Anda:', antri['antrian_di_depan'])
+        # menghitung waktu giliran pasien masuk ke klinik
+        print('Perkiraan waktu Anda mendapat giliran:', antri['waktu_masuk'] )
+        print('Perkiraan waktu selesai:', antri['waktu_selesai'])
+
+def booking():
+    ids = input('Masukkan nomor klinik: ')
+    while not ids in ['1', '2', '3', '4', '5']:
+        print('Klinik tidak valid, silahkan pilih kembali')
+        ids = input('Masukkan nomor klinik: ')
+    id = int(ids)
+    day_name = input('Masukkan hari (Senin, Selasa, Rabu, Kamis, Jumat, Sabtu): ')
+    while not day_name in ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']:
+        print('Hari tidak valid, silahkan pilih kembali')
+        day_name = input('Masukkan hari (Senin, Selasa, Rabu, Kamis, Jumat, Sabtu): ')
+    daftar_dokter = s.get_available_dokter(id, day_name)
+    print('Dokter yang tersedia:\n1. '+ daftar_dokter[0] + '\n2. ' + daftar_dokter[1])
+    no_dokter = input('Masukkan nomor dokter: ')
+    while not no_dokter in ['1', '2']:
+        print('Nomor dokter tidak valid, silahkan pilih kembali')
+        no_dokter = input('Masukkan nomor dokter: ')
+    no_rekam_medis = input('Masukkan nomor rekam medis: ')
+    nama = input('Masukkan nama: ')
+    tgl_lahir = input('Masukkan tanggal lahir (dd-mm-yyyy): ')
+    antrian = s.booking(id, no_rekam_medis, nama, tgl_lahir, day_name, daftar_dokter[int(no_dokter)-1])
+    if antrian == -1:
+        print('Antrian Penuh')
+        return
+    else:
+        # menampilkan data antrian yang didapatkan
+        print('-------------------------------------------------------')
+        print('Nomor antrian:', antrian['no'])
+        print('Nama Dokter:', antrian['dokter'])
+        print('Antrian di depan Anda:', antrian['antrian_di_depan'])
+        print('Perkiraan waktu Anda mendapat giliran:', antrian['waktu_masuk'] )
+        print('Perkiraan waktu selesai:', antrian['waktu_selesai'] )
+    
     
 # memanggil fungsi select_menu()
 select_menu()
