@@ -92,6 +92,7 @@ def registrasi():
     tgl_input = datetime.now()
     waktu = tgl_input.strftime("%H:%M")
     day = tgl_input.strftime("%d")
+    day_name = tgl_input.strftime("%A")
     # jika hari sudah berganti, maka data antrian pada seluruh klinik akan direset
     if day != s.get_hari():
         s.reset_antrian()
@@ -116,9 +117,8 @@ def registrasi():
     no_rek = input('Masukkan nomor rekam medis: ')
     nama = input('Masukkan nama: ')
     tgl_lahir = input('Masukkan tanggal lahir (dd-mm-yyyy): ')
-    tgl_input_str = tgl_input.strftime("%Y-%m-%d %H:%M")
     # memanggil fungsi regis() yang ada di komputer remote
-    no_antri = s.regis(id, no_rek, nama, tgl_lahir, tgl_input_str)
+    no_antri = s.regis(id, no_rek, nama, tgl_lahir, str(tgl_input), day_name)
     # memanggil fungsi get_antri() yang ada di komputer remote
     antri = s.get_antri(id, no_antri)
     # memanggil fungsi get_klinik() yang ada di komputer remote
@@ -126,11 +126,13 @@ def registrasi():
     # menampilkan data antrian yang didapatkan
     print('-------------------------------------------------------')
     print('Nomor antrian:', antri['no'])
-    print('Antrian di depan Anda:', len(klinik['antrian_hari'][day])-1)
+    print('Nama Dokter:', antri['dokter'])
+    print('Antrian di depan Anda:', antri['antrian_di_depan'])
     # menghitung waktu giliran pasien masuk ke klinik
-    lama_antri = (len(klinik['antrian_hari'][day])-1) * klinik['waktu_pasien']
+    lama_antri = (antri['antrian_di_depan']) * klinik['waktu_pasien']
     waktu_masuk = tgl_input + timedelta(minutes=lama_antri)
     print('Perkiraan waktu Anda mendapat giliran:', waktu_masuk)
-
+    print('Perkiraan waktu selesai:', waktu_masuk + timedelta(minutes=klinik['waktu_pasien']))
+    
 # memanggil fungsi select_menu()
 select_menu()
