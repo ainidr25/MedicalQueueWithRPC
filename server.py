@@ -25,15 +25,15 @@ daftar_klinik = [
         "waktu_pasien": 30,
         "dokter": [
 			{
-				"nama": "dr. Mentari",
-				"hari_kerja": ["Senin", "Rabu", "Jumat"],
+				"nama": "dr. Mentari ",
+				"hari_kerja": ["Senin", "Rabu", "Jumat "],
 				"jam_awal_kerja": "09:00",
 				"jam_akhir_kerja": "13:00",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Jumat": []},
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Jumat": 0}
 			},
 			{
-				"nama": "dr. Yanti",
+				"nama": "dr. Yanti   ",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "09:00",
 				"jam_akhir_kerja": "11:00",
@@ -41,8 +41,8 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Kamis": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Yadi",
-				"hari_kerja": ["Senin", "Rabu", "Jumat"],
+				"nama": "dr. Yadi    ",
+				"hari_kerja": ["Senin", "Rabu", "Jumat  "],
 				"jam_awal_kerja": "13:00",
 				"jam_akhir_kerja": "19:00",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Jumat": []},
@@ -50,7 +50,7 @@ daftar_klinik = [
                 
 			},		
 			{
-				"nama": "dr. Anto",
+				"nama": "dr. Anto    ",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "11:00",
 				"jam_akhir_kerja": "16:00",
@@ -68,15 +68,15 @@ daftar_klinik = [
         "waktu_pasien": 15,
         "dokter": [
 			{
-				"nama": "dr. Azis",
-				"hari_kerja": ["Senin", "Rabu", "Kamis"],
+				"nama": "dr. Azis    ",
+				"hari_kerja": ["Senin", "Rabu", "Kamis  "],
 				"jam_awal_kerja": "09:00",
 				"jam_akhir_kerja": "13:30",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Kamis": []},
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Kamis": 0}
 			},
 			{
-				"nama": "dr. Ayu",
+				"nama": "dr. Ayu     ",
 				"hari_kerja": ["Selasa", "Jumat", "Sabtu"],
 				"jam_awal_kerja": "09:00",
 				"jam_akhir_kerja": "13:00",
@@ -84,15 +84,15 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Jumat": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Sinta",
-				"hari_kerja": ["Senin", "Rabu", "Kamis"],
+				"nama": "dr. Sinta   ",
+				"hari_kerja": ["Senin", "Rabu", "Kamis  "],
 				"jam_awal_kerja": "13:30",
 				"jam_akhir_kerja": "18:00",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Kamis": []},
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Kamis": 0}
 			},		
 			{
-				"nama": "dr. Anto",
+				"nama": "dr. Anto    ",
 				"hari_kerja": ["Selasa", "Jumat", "Sabtu"],
 				"jam_awal_kerja": "13:00",
 				"jam_akhir_kerja": "18:00",
@@ -109,15 +109,15 @@ daftar_klinik = [
         "waktu_pasien": 50,
         "dokter": [
 			{
-				"nama": "dr. Delvito",
-				"hari_kerja": ["Senin", "Rabu", "Jumat"],
+				"nama": "dr. Delvito ",
+				"hari_kerja": ["Senin", "Rabu", "Jumat  "],
 				"jam_awal_kerja": "08:00",
 				"jam_akhir_kerja": "12:00",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Jumat": []},
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Jumat": 0}
 			},
 			{
-				"nama": "dr. Asep",
+				"nama": "dr. Asep    ",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "08:00",
 				"jam_akhir_kerja": "12:00",
@@ -125,8 +125,8 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Kamis": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Santy",
-				"hari_kerja": ["Senin", "Rabu", "Jumat"],
+				"nama": "dr. Santy   ",
+				"hari_kerja": ["Senin", "Rabu", "Jumat  "],
 				"jam_awal_kerja": "12:00",
 				"jam_akhir_kerja": "17:00",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Jumat": []},
@@ -150,15 +150,15 @@ daftar_klinik = [
         "waktu_pasien": 20,
         "dokter": [
 			{
-				"nama": "dr. Aini",
-				"hari_kerja": ["Senin", "Rabu", "Kamis"],
+				"nama": "dr. Aini    ",
+				"hari_kerja": ["Senin", "Rabu", "Kamis  "],
 				"jam_awal_kerja": "07:00",
 				"jam_akhir_kerja": "13:00",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Kamis": []},
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Kamis": 0}
 			},
 			{
-				"nama": "dr. Budi",
+				"nama": "dr. Budi    ",
 				"hari_kerja": ["Selasa", "Jumat", "Sabtu"],
 				"jam_awal_kerja": "07:00",
 				"jam_akhir_kerja": "13:00",
@@ -166,8 +166,8 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Jumat": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Soni",
-				"hari_kerja": ["Senin", "Rabu", "Kamis"],
+				"nama": "dr. Soni    ",
+				"hari_kerja": ["Senin", "Rabu", "Kamis  "],
 				"jam_awal_kerja": "13:00",
 				"jam_akhir_kerja": "18:00",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Kamis": []},
@@ -191,15 +191,15 @@ daftar_klinik = [
         "waktu_pasien": 50,
         "dokter": [
 			{
-				"nama": "dr. Rafi",
-				"hari_kerja": ["Senin", "Rabu", "Jumat"],
+				"nama": "dr. Rafi    ",
+				"hari_kerja": ["Senin", "Rabu", "Jumat  "],
 				"jam_awal_kerja": "08:00",
 				"jam_akhir_kerja": "12:00",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Jumat": []},
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Jumat": 0}
 			},
 			{
-				"nama": "dr. Rachmat",
+				"nama": "dr. Rachmat ",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "08:00",
 				"jam_akhir_kerja": "12:00",
@@ -207,15 +207,15 @@ daftar_klinik = [
                 "jml_antrian_hari": {"Selasa": 0, "Kamis": 0, "Sabtu": 0}
 			},
 			{
-				"nama": "dr. Alysia",
-				"hari_kerja": ["Senin", "Rabu", "Jumat"],
+				"nama": "dr. Alysia  ",
+				"hari_kerja": ["Senin", "Rabu", "Jumat  "],
 				"jam_awal_kerja": "12:00",
 				"jam_akhir_kerja": "17:00",
                 "antrian_hari": {"Senin": [], "Rabu": [], "Jumat": []},
                 "jml_antrian_hari": {"Senin": 0, "Rabu": 0, "Jumat": 0}
 			},		
 			{
-				"nama": "dr. Saldy",
+				"nama": "dr. Saldy   ",
 				"hari_kerja": ["Selasa", "Kamis", "Sabtu"],
 				"jam_awal_kerja": "12:00",
 				"jam_akhir_kerja": "17:00",
@@ -356,12 +356,20 @@ class RumahSakit:
         global daftar_klinik
         daftar_str = ""
         for klinik in daftar_klinik:
-            daftar_str += f"Klinik: {klinik['nama']}\n"
-            daftar_str += "Daftar Dokter:\n"
+            daftar_str += "==================================================\n"
+            daftar_str += f"||\t\tKlinik : {klinik['nama']}\t\t||\n"
+            daftar_str += "++++++++++++++++++++++++++++++++++++++++++++++++++\n"
+            daftar_str += "|\t\t    Jadwal Dokter   \t\t |\n"
+
+            dokter_counter = 1
             for dokter in klinik['dokter']:
-                daftar_str += f"Nama: {dokter['nama']}\n"
-                daftar_str += f"Hari Kerja: {', '.join(dokter['hari_kerja'])}\n"
-                daftar_str += f"Jam Kerja: {dokter['jam_awal_kerja']} - {dokter['jam_akhir_kerja']}\n\n"
+                daftar_str += f"| {dokter_counter}. Nama Dokter  : {dokter['nama']} \t\t |\n"
+                daftar_str += f"|    Hari Kerja  : {', '.join(dokter['hari_kerja'])}\t\t |\n"
+                daftar_str += f"|    Jam Kerja   : {dokter['jam_awal_kerja']} - {dokter['jam_akhir_kerja']}\t\t |\n"
+                daftar_str += "|\t\t\t\t\t\t |\n"
+                dokter_counter += 1
+
+            daftar_str += "==================================================\n\n"
         return daftar_str
 
 # meregisterkan class pada server

@@ -54,12 +54,16 @@ def tampil_daftar():
     klinik_buka = s.get_klinik_buka(waktu)
     if klinik_buka:
         for klinik in klinik_buka:
-            jml_pasien = sum(len(antrian) for antrian in klinik['antrian_hari'].values())
+            total_pasien = 0  # Inisialisasi total pasien
+            for dokter in klinik['dokter']:
+                # Menghitung total pasien untuk setiap hari dari semua dokter di klinik tersebut
+                for antrian in dokter['antrian_hari'].values():
+                    total_pasien += len(antrian)
             print('[', klinik['id'], ']', sep='')
             print('Nomor Klinik            :', klinik['id'])
             print('Nama Klinik             :', klinik['nama'])
             print('Jam Buka - Jam Tutup    :', klinik['buka'], '-', klinik['tutup'])
-            print('Jumlah Pasien Terdaftar :', jml_pasien)
+            print('Jumlah Pasien Terdaftar :', total_pasien)
             print()
     else:
         print('Tidak ada klinik yang buka')
