@@ -308,7 +308,7 @@ class RumahSakit:
                             antrian_baru['dokter'] = dokter['nama']
                             dokter['antrian_hari'][day].append(antrian_baru)
                             antrian_baru['antrian_di_depan'] = len(dokter['antrian_hari'][day]) - 1
-                            return antrian_baru['no']
+                            return antrian_baru
                         else:
                             return -1
         return None  # Jika tidak ada klinik atau dokter yang cocok

@@ -136,22 +136,19 @@ def registrasi():
     nama = input('Masukkan nama: ')
     tgl_lahir = input('Masukkan tanggal lahir (dd-mm-yyyy): ')
     # memanggil fungsi regis() yang ada di komputer remote
-    no_antri = s.regis(id, no_rekam_medis, nama, tgl_lahir, str(waktu_masuk), day_name)
-    
-    if no_antri == -1:
+    antrian = s.regis(id, no_rekam_medis, nama, tgl_lahir, str(waktu_masuk), day_name)
+    logging.debug(antrian)
+    if antrian == -1:
         print('Antrian Penuh')
         return
     else:
-        # memanggil fungsi get_antri() yang ada di komputer remote
-        antri = s.get_antri(id, no_antri, day_name)
         # menampilkan data antrian yang didapatkan
         print('-------------------------------------------------------')
-        print('Nomor antrian:', antri['no'])
-        print('Nama Dokter:', antri['dokter'])
-        print('Antrian di depan Anda:', antri['antrian_di_depan'])
-        # menghitung waktu giliran pasien masuk ke klinik
-        print('Perkiraan waktu Anda mendapat giliran:', antri['waktu_masuk'] )
-        print('Perkiraan waktu selesai:', antri['waktu_selesai'])
+        print('Nomor antrian:', antrian['no'])
+        print('Nama Dokter:', antrian['dokter'])
+        print('Antrian di depan Anda:', antrian['antrian_di_depan'])
+        print('Perkiraan waktu Anda mendapat giliran:', antrian['waktu_masuk'] )
+        print('Perkiraan waktu selesai:', antrian['waktu_selesai'] )
 
 def booking():
     ids = input('Masukkan nomor klinik: ')
