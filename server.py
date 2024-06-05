@@ -304,6 +304,7 @@ class RumahSakit:
                         if is_masih_ada_antrian:
                             antrian_baru['no'] = len(dokter['antrian_hari'][day]) + 1
                             waktu_selesai = waktu_antrian + timedelta(minutes=klinik['waktu_pasien'])
+                            antrian_baru['waktu_masuk'] = str(waktu_antrian)
                             antrian_baru['waktu_selesai'] = str(waktu_selesai)
                             antrian_baru['dokter'] = dokter['nama']
                             dokter['antrian_hari'][day].append(antrian_baru)
