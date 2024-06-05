@@ -14,7 +14,7 @@ def select_menu():
     global pilihan
     print('======= Selamat datang di Rumah Sakit Semangka! =======')
     print('1. Menampilkan daftar klinik yang buka')
-    print('2. Menampilkan seluruh daftar klinik beserta jadwal dokter')
+    print('2. Menampilkan daftar seluruh klinik beserta jadwal dokter')
     print('3. Registrasi')
     print('4. Booking Antrian')
     print('0. Keluar')
@@ -137,7 +137,6 @@ def registrasi():
     tgl_lahir = input('Masukkan tanggal lahir (dd-mm-yyyy): ')
     # memanggil fungsi regis() yang ada di komputer remote
     antrian = s.regis(id, no_rekam_medis, nama, tgl_lahir, str(waktu_masuk), day_name)
-    logging.debug(antrian)
     if antrian == -1:
         print('Antrian Penuh')
         return
