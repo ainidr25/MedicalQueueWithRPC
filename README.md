@@ -86,5 +86,5 @@ Disusun oleh kelompok 7, kelas 3B 2021 Teknik Informatika, Jurusan Teknik Komput
 
 ## Catatan
 
-Untuk informasi lebih lanjut, silakan merujuk ke [[dokumentasi proyek](TB-Kelompok7.pdf)](https://drive.google.com/file/d/156TWqj4f1RMaDC7IHBZ7PYNlxGYJeT_Y/view?usp=sharing).
+Untuk informasi lebih lanjut, silakan merujuk ke [Dokumentasi Sistem Antrean Registrasi Medis untuk Meningkatkan Efisiensi dan Pengalaman Pasien di Rumah Sakit Menggunakan Mekanisme RPC (Remote Procedure Call)](https://drive.google.com/file/d/156TWqj4f1RMaDC7IHBZ7PYNlxGYJeT_Y/view?usp=sharing)
   
